@@ -1,0 +1,2 @@
+# každou minutu expirace HOLD
+* * * * * cd /workspace && poetry run python src/manage.py expire_holds >> /var/log/cron.log 2>&1

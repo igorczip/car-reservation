@@ -1,0 +1,121 @@
+# src/fleet/models.py
+"""
+FLEET doména:
+- Region: geografická/logická oblast (může mít vlastní timezone)
+- Fleet: "flotila" v rámci regionu (např. firma / oddělení / skupina aut)
+- Branch: pobočka (místo převzetí/vrácení), patří do Region + Fleet
+- Vehicle: konkrétní auto (VIN, SPZ), patří do Branch
+
+Poznámka:
+- DB klíče jsou UUID (přes common.UUIDModel).
+- created_at/updated_at máme přes common.TimeStampedModel.
+- PROTECT u FK: nechceme, aby se omylem smazal region/pobočka, když na nich visí data.
+"""
+
+from django.db import models
+from common.models import UUIDModel, TimeStampedModel
+
+
+class Region(UUIDModel, TimeStampedModel):
+    """
+    Region = oblast (např. "Praha", "Brno", "SK").
+    tz = IANA timezone (Europe/Prague), slouží pro výpočty lokálních časů,
+    ale do DB ukládáme časy vždy v UTC.
+    """
+    name = models.CharField(max_length=120)
+    tz = models.CharField(max_length=64, default="UTC")
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Fleet(UUIDModel, TimeStampedModel):
+    """
+    Fleet = flotila vozidel v rámci regionu (logická skupina).
+    """
+    name = models.CharField(max_length=120)
+
+    # PROTECT: pokud existuje fleet, region nesmí zmizet pod nohama
+    region = models.ForeignKey(
+        "fleet.Region",
+        on_delete=models.PROTECT,
+        related_name="fleets",
+    )
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Branch(UUIDModel, TimeStampedModel):
+    """
+    Branch = pobočka, kde probíhá pickup/return.
+    Zde dává smysl mít parametry pro pravidla (časové okno, krok atd.)
+    - tz může být prázdné => použijeme region.tz (logika později ve službách).
+    """
+    name = models.CharField(max_length=120)
+
+    region = models.ForeignKey(
+        "fleet.Region",
+        on_delete=models.PROTECT,
+        related_name="branches",
+    )
+    fleet = models.ForeignKey(
+        "fleet.Fleet",
+        on_delete=models.PROTECT,
+        related_name="branches",
+    )
+
+    # Pokud je prázdné, počítá se tz z Region.tz
+    tz = models.CharField(max_length=64, blank=True, default="")
+
+    # "window" = toleranční okno kolem času
+    pickup_window_min = models.PositiveIntegerField(default=30)
+    return_window_min = models.PositiveIntegerField(default=30)
+
+    # "step" = krok výběru času (např. po 15 min)
+    pickup_step_min = models.PositiveIntegerField(default=15)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class VehicleStatus(models.TextChoices):
+    """
+    Stav vozidla.
+    Pozn.: toto NENÍ stav rezervace, jen dostupnost auta.
+    """
+    ACTIVE = "ACTIVE", "ACTIVE"
+    MAINTENANCE = "MAINTENANCE", "MAINTENANCE"
+    OUT_OF_SERVICE = "OUT_OF_SERVICE", "OUT_OF_SERVICE"
+
+
+class Vehicle(UUIDModel, TimeStampedModel):
+    """
+    Vehicle = konkrétní auto.
+    - vin a plate jsou unique => jednoznačná identifikace.
+    - branch říká "kde je auto doma" (primární pobočka).
+    """
+    branch = models.ForeignKey(
+        "fleet.Branch",
+        on_delete=models.PROTECT,
+        related_name="vehicles",
+    )
+
+    vin = models.CharField(max_length=32, unique=True)
+    plate = models.CharField(max_length=32, unique=True)
+    name = models.CharField(max_length=120)
+
+    status = models.CharField(
+        max_length=32,
+        choices=VehicleStatus.choices,
+        default=VehicleStatus.ACTIVE,
+    )
+
+    class Meta:
+        # Indexy pomůžou pro filtrování v UI i API (např. "všechna active auta na pobočce")
+        indexes = [
+            models.Index(fields=["branch", "status"]),
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.name} ({self.plate})"

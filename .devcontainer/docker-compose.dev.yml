@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    ports:
+      - "127.0.0.1:8010:8000"
+    env_file:
+      - ../.env
+    depends_on:
+      - db
+      - plantuml
+    networks:
+      - car-net
+    command: >
+      bash -lc " cd /workspace && poetry install --no-interaction --no-ansi --no-root && poetry run python src/manage.py migrate && poetry run python src/manage.py runserver 0.0.0.0:8000"
+
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=car_reservation
+      - POSTGRES_USER=car
+      - POSTGRES_PASSWORD=car
+    volumes:
+      - car_pgdata:/var/lib/postgresql/data
+      - ../docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "127.0.0.1:5433:5432"
+    networks:
+      - car-net
+
+  plantuml:
+    image: plantuml/plantuml-server:jetty
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:18081:8080"
+    networks:
+      - car-net
+
+  cron:
+    build:
+      context: ..
+      dockerfile: docker/cron/Dockerfile
+    env_file:
+      - ../.env
+    depends_on:
+      - web
+      - db
+    networks:
+      - car-net
+    command: ["/entrypoint.sh"]
+
+volumes:
+  car_pgdata:
+
+networks:
+  car-net:
+    driver: bridge

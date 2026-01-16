@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -e
+
+cd /workspace
+
+poetry --version
+
+# 1) inicializace projektu jen pokud neexistuje
+if [ ! -f pyproject.toml ]; then
+  poetry init -n --name car-reservation --python "^3.12"
+  poetry add django djangorestframework psycopg[binary] python-dotenv
+fi
+
+# 2) instalace deps (bez změn v pyprojectu)
+poetry install --no-root
+
+
+# 3) založ Django projekt pokud neexistuje
+if [ ! -f src/manage.py ]; then
+  mkdir -p src
+  poetry run django-admin startproject config src
+fi
+
+echo "✅ Hotovo. Web kontejner spouští server automaticky (port 8010 na hostu)."
