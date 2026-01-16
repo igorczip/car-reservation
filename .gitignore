@@ -1,0 +1,49 @@
+# =====================
+# Python
+# =====================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# =====================
+# Virtualenv / Poetry
+# =====================
+.venv/
+venv/
+.env
+.env.*
+
+# =====================
+# Django
+# =====================
+*.log
+local_settings.py
+db.sqlite3
+staticfiles/
+media/
+
+# =====================
+# Docker
+# =====================
+*.env
+docker-compose.override.yml
+
+# =====================
+# IDE
+# =====================
+.vscode/
+.idea/
+
+# =====================
+# OS
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# Temporary / exports
+# =====================
+out_temp/
+*.bak
