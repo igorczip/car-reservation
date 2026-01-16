@@ -12,8 +12,13 @@ __pycache__/
 # =====================
 .venv/
 venv/
+
+# =====================
+# Env files (real secrets)
+# =====================
 .env
 .env.*
+!.env.example
 
 # =====================
 # Django
@@ -25,22 +30,10 @@ staticfiles/
 media/
 
 # =====================
-# Docker
-# =====================
-*.env
-docker-compose.override.yml
-
-# =====================
 # IDE
 # =====================
 .vscode/
 .idea/
-
-# =====================
-# OS
-# =====================
-.DS_Store
-Thumbs.db
 
 # =====================
 # Temporary / exports
