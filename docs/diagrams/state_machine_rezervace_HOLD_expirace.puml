@@ -1,0 +1,21 @@
+@startuml state_machine_rezervace_HOLD_expirace
+hide empty description
+skinparam style strictuml
+
+[*] --> DRAFT
+
+DRAFT --> HOLD : action=hold\n(customer)\nvalidate availability\n+ create HOLD_SET
+HOLD --> HOLD : action=update_hold\n(customer)\nreset expiration 15min\n+ HOLD_REFRESHED
+
+HOLD --> CONFIRMED : action=confirm\n(customer)\navailability ok\nidempotent\n+ CONFIRMED
+
+CONFIRMED --> PICKED_UP : action=pickup\n(staff)\nguard staff scope\n+ PICKED_UP
+PICKED_UP --> RETURNED : action=return\n(staff)\nreturn window warning only\n+ RETURNED
+
+DRAFT --> CANCELED : action=cancel\n(customer)\n+ CANCELED_BY_CUSTOMER
+HOLD --> CANCELED : action=cancel\n(customer)\n+ CANCELED_BY_CUSTOMER
+CONFIRMED --> CANCELED : action=cancel\n(customer)\nallowed always\n+ CANCELED_BY_CUSTOMER
+
+HOLD --> EXPIRED : cron expire\n(now > hold_expires_at)\n+ HOLD_EXPIRED
+
+@enduml

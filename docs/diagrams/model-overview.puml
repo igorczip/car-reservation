@@ -1,0 +1,197 @@
+@startuml class_diagram_entity_vazby_v3
+skinparam style strictuml
+hide circle
+hide methods
+hide stereotypes
+
+package "accounts" {
+  class User {
+    id: uuid
+    username: string
+    email: string
+    is_active: bool
+  }
+
+  class CustomerProfile {
+    id: uuid
+    user_id: uuid (FK, unique)
+    email: string  <<notification>>
+    phone: string?
+    full_name: string?
+    created_at: datetime
+    updated_at: datetime
+  }
+
+  class StaffProfile {
+    id: uuid
+    user_id: uuid (FK, unique)
+    role: StaffRole
+    created_at: datetime
+    updated_at: datetime
+  }
+
+  enum StaffRole {
+    STAFF_BRANCH
+    STAFF_FLEET
+    STAFF_REGION
+    ADMIN
+  }
+
+  User "1" -- "0..1" CustomerProfile
+  User "1" -- "0..1" StaffProfile
+}
+
+package "org" {
+  class Region {
+    id: uuid
+    code: string (unique)
+    name: string
+  }
+
+  class Fleet {
+    id: uuid
+    code: string (unique)
+    name: string
+    region_id: uuid (FK)
+  }
+
+  class Branch {
+    id: uuid
+    code: string (unique)
+    name: string
+    timezone: string (IANA)
+    region_id: uuid (FK)
+    fleet_id: uuid (FK)
+  }
+
+  Region "1" -- "0..*" Fleet
+  Region "1" -- "0..*" Branch
+  Fleet  "1" -- "0..*" Branch
+}
+
+package "fleet" {
+  class Vehicle {
+    id: uuid
+    vin: string (unique)
+    plate: string (unique)
+    status: VehicleStatus
+    branch_id: uuid (FK)
+    display_name: string
+  }
+
+  enum VehicleStatus {
+    ACTIVE
+    OUT_OF_SERVICE
+    MAINTENANCE
+  }
+
+  Branch "1" -- "0..*" Vehicle
+}
+
+package "reservations" {
+  class Reservation {
+    id: uuid
+    number: string (unique)  <<human-friendly>>
+    customer_id: uuid (FK -> User)
+    vehicle_id: uuid (FK -> Vehicle)
+    branch_id: uuid (FK -> Branch)
+
+    start_at_utc: datetime
+    end_at_utc: datetime
+    status: ReservationStatus
+
+    pickup_at_utc: datetime?
+    return_at_utc: datetime?
+
+    currency: string
+    total_amount: decimal
+
+    created_at: datetime
+    updated_at: datetime
+  }
+
+  enum ReservationStatus {
+    DRAFT
+    HOLD
+    CONFIRMED
+    PICKED_UP
+    RETURNED
+    CANCELED
+    EXPIRED
+  }
+
+  class ReservationEvent {
+    id: uuid
+    reservation_id: uuid (FK)
+    event_type: ReservationEventType
+    actor_user_id: uuid (FK -> User)
+    occurred_at: datetime
+    data: jsonb  <<diff/sporná pole>>
+    idempotency_key: string?
+  }
+
+  enum ReservationEventType {
+    CREATED
+    HOLD_SET
+    HOLD_REFRESHED
+    HOLD_EXPIRED
+    CONFIRMED
+    CANCELED_BY_CUSTOMER
+    CANCELED_BY_STAFF
+    PICKED_UP
+    RETURNED
+
+    START_TIME_CHANGED
+    END_TIME_CHANGED
+    VEHICLE_CHANGED
+    PRICE_CHANGED
+    NOTES_CHANGED
+  }
+
+  class AvailabilityBlock {
+    id: uuid
+    vehicle_id: uuid (FK)
+    branch_id: uuid (FK)
+    start_at_utc: datetime
+    end_at_utc: datetime
+    reason: BlockReason
+    created_at: datetime
+  }
+
+  enum BlockReason {
+    MAINTENANCE
+    OUT_OF_SERVICE
+    MANUAL_BLOCK
+  }
+
+  User    "1" -- "0..*" Reservation : customer
+  Vehicle "1" -- "0..*" Reservation
+  Branch  "1" -- "0..*" Reservation
+  Reservation "1" -- "0..*" ReservationEvent
+  Vehicle "1" -- "0..*" AvailabilityBlock
+  Branch  "1" -- "0..*" AvailabilityBlock
+}
+
+package "policy" {
+  class StaffScope {
+    id: uuid
+    staff_profile_id: uuid (FK)
+    scope_type: ScopeType
+    region_id: uuid?
+    fleet_id: uuid?
+    branch_id: uuid?
+  }
+
+  enum ScopeType {
+    BRANCH
+    FLEET
+    REGION
+  }
+
+  StaffProfile "1" -- "0..*" StaffScope
+  Region "0..1" -- "0..*" StaffScope
+  Fleet  "0..1" -- "0..*" StaffScope
+  Branch "0..1" -- "0..*" StaffScope
+}
+
+@enduml

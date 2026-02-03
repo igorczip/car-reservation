@@ -1,0 +1,11 @@
+{
+  "plantuml.render": "PlantUMLServer",
+  "plantuml.server": "http://plantuml:8080",
+  "plantuml.exportFormat": "png",
+  "plantuml.exportOutDir": "docs/diagrams/out",
+  "files.associations": {
+    "*.puml": "plantuml",
+    "*.plantuml": "plantuml"
+  }
+}
+
