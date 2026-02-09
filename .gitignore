@@ -47,3 +47,16 @@ out_temp/
 # Snapshots / DB backups
 snapshots/
 backups/
+
+# Lokální diagnostika a exporty
+env_info.py
+system_info.txt
+requirements.txt
+reqiuremenmts.txt
+struktura_projektu*.txt
+
+# Zálohy souborů
+*_bak.py
+
+# Excel temp (užitečné)
+~$*.xlsx
