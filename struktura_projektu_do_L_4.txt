@@ -1,0 +1,609 @@
+.
+|-- .devcontainer
+|   |-- Dockerfile
+|   |-- devcontainer.json
+|   |-- docker-compose.dev.yml
+|   `-- postCreateCommand.sh
+|-- .git
+|   |-- hooks
+|   |   |-- applypatch-msg.sample
+|   |   |-- commit-msg.sample
+|   |   |-- fsmonitor-watchman.sample
+|   |   |-- post-update.sample
+|   |   |-- pre-applypatch.sample
+|   |   |-- pre-commit.sample
+|   |   |-- pre-merge-commit.sample
+|   |   |-- pre-push.sample
+|   |   |-- pre-rebase.sample
+|   |   |-- pre-receive.sample
+|   |   |-- prepare-commit-msg.sample
+|   |   |-- push-to-checkout.sample
+|   |   |-- sendemail-validate.sample
+|   |   `-- update.sample
+|   |-- info
+|   |   `-- exclude
+|   |-- logs
+|   |   |-- refs
+|   |   |   |-- heads
+|   |   |   `-- remotes
+|   |   `-- HEAD
+|   |-- objects
+|   |   |-- 00
+|   |   |   `-- 440ce6ab3051b6606e56d82b19746fbe2da2e9
+|   |   |-- 01
+|   |   |   `-- e98cfbcfacaa5fba06bc293563f57415bc7507
+|   |   |-- 03
+|   |   |   |-- 0b707983a4602429fc30fabff6e5916e791503
+|   |   |   `-- 0d8ee608685e98ce2b92d803e6ae4710461a15
+|   |   |-- 04
+|   |   |   `-- 25700543483bb186ff8d8599aa9b1f35a7eca7
+|   |   |-- 06
+|   |   |   |-- 58e33dd7e1ca2f690d8b6bba8e8b60f91f7e00
+|   |   |   |-- 8c56e682ea40432affbeec5ad1fac68312b1d7
+|   |   |   `-- 9efa3df9fab158cf6796d70232056fdabbf358
+|   |   |-- 09
+|   |   |   |-- 056123482c2962083837b1b6a61b323623d412
+|   |   |   `-- d9ef8a79f83e728a5de6fdaa266a2bb041d3dd
+|   |   |-- 0c
+|   |   |   `-- 8a1e3d8d08abe42f83f3ca742cd6a4dbd5291f
+|   |   |-- 13
+|   |   |   `-- decacecbfaf367b7893eb54091bcbe2a6755f1
+|   |   |-- 14
+|   |   |   `-- 103856625b6eabc5e730b41090996db50e672a
+|   |   |-- 15
+|   |   |   `-- 968a241aac856aa1f60a01b7c4cd86ae0b2841
+|   |   |-- 16
+|   |   |   `-- f9891e66d46c7f588e6acbb7a58d2a1f371f50
+|   |   |-- 17
+|   |   |   |-- 773ed56969e1a0b2b68aa7cd9f2a18c3820e92
+|   |   |   |-- 85ec0f7e2fc917777fedfc05813161f89a09ca
+|   |   |   `-- da213110418e47d80019ce83950d4c1dc8c6ea
+|   |   |-- 1a
+|   |   |   `-- 69245c881aa722eb02a501a6dff5d232f40a2e
+|   |   |-- 1d
+|   |   |   |-- 14344c9b51efd57f33d7b2d69ddf3c87bbc2a8
+|   |   |   `-- 1c64934be83365d9dd889f369693102edcf5de
+|   |   |-- 1e
+|   |   |   |-- 6b5aa7bc470d977d875aec24f90c17937e3c01
+|   |   |   `-- f30641ed59f11f218e20772f32b4067ab6371a
+|   |   |-- 1f
+|   |   |   `-- c39d0196a2cec3f1422d3cd984a46f0d91340e
+|   |   |-- 20
+|   |   |   |-- 6b4c604fd67fe2221539d391a87b5d50cd5c18
+|   |   |   `-- ef093986c66b95db0f75d0b4b6c38dd2de2e7e
+|   |   |-- 21
+|   |   |   `-- c95947718a95755fa7a5b6f4f6ced4de440896
+|   |   |-- 22
+|   |   |   |-- 3025456b7cd232f1a2e507fe8acdd837e2aec5
+|   |   |   `-- c6dc2e234dff59ec25afb702faea3e678bdc3b
+|   |   |-- 26
+|   |   |   |-- 4029eb582c9c0f373ea6cadc8952c1ac8d668f
+|   |   |   `-- a40ff1716e3d1e501beba1623ce4fdad2999c2
+|   |   |-- 27
+|   |   |   `-- faca13f7bbb9d137a2b387c72a029a8fe038e1
+|   |   |-- 28
+|   |   |   |-- 734747853b6c0c374575952c3bcf889c95831f
+|   |   |   |-- b71a18bbc87885348d6fdf0e3fa602b2a5b5e2
+|   |   |   `-- d8b0a59ae8bc388a8cc8520ad19a85c295aef7
+|   |   |-- 2c
+|   |   |   `-- 31570027593ecc823e9a3c6108c02dac0cfad6
+|   |   |-- 2d
+|   |   |   |-- 7cc414d4cd2c9ebdc2a3bc9cc6adb5fcbb8db7
+|   |   |   `-- ab188be789250dda98168d3eb5f5bef3d4505c
+|   |   |-- 2f
+|   |   |   |-- 153fdaf4f6d5e39d70961142f84e4ab7c97509
+|   |   |   `-- d79884a79fb7f8e34372dbba4cf26a35ccce88
+|   |   |-- 30
+|   |   |   |-- 3acb65066bfedf878918704b8e325a1b689ce6
+|   |   |   `-- 8b8ab69b96819a25fe1d659971c205fa2f7573
+|   |   |-- 32
+|   |   |   `-- d2164bd2005be3e79b760131783a8205f7d5b2
+|   |   |-- 33
+|   |   |   `-- ab3ae775ae3ae89bbcc934f2196abea7371dc1
+|   |   |-- 34
+|   |   |   `-- 4e1792992faa89c4618bb677978e23fd76f4e7
+|   |   |-- 36
+|   |   |   `-- 60e0df561b02a0112f0aa79ca31a198d31d4ec
+|   |   |-- 37
+|   |   |   `-- 3398822f886fcc384af0cf76a72ebe5c614a42
+|   |   |-- 38
+|   |   |   `-- 46fcf279a2e92b47672c604309c0f7803ec3a5
+|   |   |-- 3b
+|   |   |   `-- 2ce92f649f2f77fb563983dcd4e01926f8e745
+|   |   |-- 3c
+|   |   |   |-- 4a1179d0174af74a7fa71329785534a64db373
+|   |   |   `-- ab5539d8fdf319a1226f9a4e215e32d92b62a5
+|   |   |-- 3d
+|   |   |   |-- 22dc238c1fd70afba7d4bc927150e12355c6a4
+|   |   |   `-- b286aa4d2ca6ca109b45cebb24f6469f5a29be
+|   |   |-- 3e
+|   |   |   `-- b759a17c631cfeaea0a8e27f757ac7864d4720
+|   |   |-- 40
+|   |   |   `-- 912e8b34b0eec99ff9282003925bb150b4d2d5
+|   |   |-- 41
+|   |   |   |-- 92a4f873f9e41983ec980314471477f73f8895
+|   |   |   `-- a02811609a1dd66ed3ce8aa3c1872dd3ae731e
+|   |   |-- 44
+|   |   |   |-- 0c03e6ba652651a6a04d56483cc62d66bbf0df
+|   |   |   |-- 3d760e61afb2079b78b57e4c0a70a47fbf183d
+|   |   |   `-- 5276263097e9c7376a4134f92a986602c756d8
+|   |   |-- 46
+|   |   |   `-- cccee6760f112b6151a7c58e58daf119fb75eb
+|   |   |-- 48
+|   |   |   `-- 445a312a504aa74e0271dccc3ca7a49f3087b9
+|   |   |-- 49
+|   |   |   `-- 23744f52b67bf3a98aef00f103f98ff917de99
+|   |   |-- 4a
+|   |   |   `-- 8df78e9f5d4061f23fcbc1c4076bd508ef051a
+|   |   |-- 4b
+|   |   |   `-- 7f97857e41c67aa383b2f301448bdd6977c40c
+|   |   |-- 4d
+|   |   |   |-- a18bd6a4ab90714d7d97787489063c64ca6a91
+|   |   |   `-- e50eb8ec8e7ae0ff8b9a4e2b7e687821e5aa82
+|   |   |-- 4e
+|   |   |   `-- b20c768130568e7ca5783b26c8a0c66aec62aa
+|   |   |-- 4f
+|   |   |   `-- 1a0188b6ce0baf5f7950419fcb88bce7b04dbf
+|   |   |-- 50
+|   |   |   `-- 3963a9925e42e1b5a744b4b18e0d62105b269a
+|   |   |-- 53
+|   |   |   |-- 8f02fcc71922b6df464ed5a45accc3d498ff7b
+|   |   |   `-- ee8e54c55da890c90100d348546cc8015d04a5
+|   |   |-- 55
+|   |   |   `-- 9e8fc979287dea4a695e1eef1ee0ef001fff5e
+|   |   |-- 56
+|   |   |   `-- 1bdc29fb6974f0fdb91b7e8df9f66f15fccf51
+|   |   |-- 57
+|   |   |   |-- 10740846de459d3baec0e2e70d78dd6c6e0bc4
+|   |   |   |-- 3e01919d3f65f4c604770b8a546d54ee28dff9
+|   |   |   `-- d7a25ce004dad5f8f27885f6386785bbe3436c
+|   |   |-- 58
+|   |   |   `-- c4cf236e1b8b687a19f3229a00f7009804d631
+|   |   |-- 59
+|   |   |   `-- 7a18daa596a07c5a6cbd1266d8e589c8df80eb
+|   |   |-- 5a
+|   |   |   |-- cbe8526d68f05652d41668bab2dd79e4f92085
+|   |   |   `-- f2c8c3f121f25ce28bbdc7e5e9d5d91df9acd1
+|   |   |-- 5c
+|   |   |   `-- 88ef7510076f2221ed6147145a84cc115b4f95
+|   |   |-- 5d
+|   |   |   `-- f922c6f376ef8f2fb500c74a8840b37a9d2421
+|   |   |-- 61
+|   |   |   |-- 6c2dce73cae3511673296144fb5040e0d3076c
+|   |   |   `-- 9b25c10a56fe78eb200684403ec442a60de3a6
+|   |   |-- 62
+|   |   |   |-- ac7a2460b3ae4ef20f08e36b732c244bdad548
+|   |   |   `-- c9328ff96014b4299884e696382b1fd1fa77ae
+|   |   |-- 66
+|   |   |   `-- a94cf8de55344cfc6201c4f2ca1c36ef670990
+|   |   |-- 67
+|   |   |   |-- 1dd5df9d7539f80f178903663f4ae4c34eb6ec
+|   |   |   |-- 3abb57cb8f9c697b8a177e850b01c2e9af4c2d
+|   |   |   `-- b0502794b156f9f74bca4d71954ecdd4899757
+|   |   |-- 68
+|   |   |   `-- a807c7510cc6fed4600511cf2156c4514225ff
+|   |   |-- 6a
+|   |   |   `-- 7f55c64b828c0ca7f96d29af4dfc08242772b7
+|   |   |-- 6c
+|   |   |   `-- c5a884950ddcfc8235d0c5f360196e8a8165f9
+|   |   |-- 6e
+|   |   |   `-- 2d38bf4789b484cbdfa124b588be0b7b51cfc9
+|   |   |-- 71
+|   |   |   `-- 1c4352191a9be3e7d0431be07016cf06b2849d
+|   |   |-- 73
+|   |   |   `-- 15346169ad15ba305191b372bac9e154b168cf
+|   |   |-- 74
+|   |   |   `-- 942a05c8c04514a7855734adf595cee9132032
+|   |   |-- 75
+|   |   |   `-- 832982d043805571c715f44e666796143bc67f
+|   |   |-- 77
+|   |   |   `-- 695e274e288c89bd85d66de50d0618f56215f8
+|   |   |-- 79
+|   |   |   |-- 10c6018fb42c2bd473e778e396fa2133a6e227
+|   |   |   `-- be8e5f972d32dc796b51127f3b0a4aa507fcac
+|   |   |-- 7b
+|   |   |   `-- 7affb98e97607fd7ffea79845239d3355d8dcb
+|   |   |-- 7c
+|   |   |   |-- 31623ec38c90f3b94bfa7047d365f7fd97d107
+|   |   |   |-- 731a9628dd3ee2a69caebf587fa7159bf56309
+|   |   |   `-- afea72d790d249ed99194b698bf751c0d88731
+|   |   |-- 7d
+|   |   |   |-- a3e8680b81353db69c875aa3016ffa88565731
+|   |   |   `-- c24f23793dbc423269fe89d73b8397f865b025
+|   |   |-- 7e
+|   |   |   `-- 200a3fd019628e9be7aa3674ed2f141d74a4ff
+|   |   |-- 7f
+|   |   |   `-- 327e0e7b31081d832594f551996c9eb41a5eee
+|   |   |-- 80
+|   |   |   |-- 82c59c71096194f09190fd6c891732b26a1266
+|   |   |   `-- f612c9db93d183222051993c943e5cf3d091f5
+|   |   |-- 82
+|   |   |   |-- 0273d0d359147725c9a590109d009360500bcb
+|   |   |   `-- 176a87e847bb52a0efb03018eecd57bca5eaea
+|   |   |-- 83
+|   |   |   `-- 6c91b56c28536603fd3b53bc5318a17d9f8b7c
+|   |   |-- 84
+|   |   |   `-- 43a9ba741c2cff4d1d7c287f7cb748f2b8e673
+|   |   |-- 86
+|   |   |   `-- 9cb94119d33dc026d2c55415803b1ff209ca3b
+|   |   |-- 87
+|   |   |   `-- 5e687f8d02e53c292fcf7a12286ab436e240bf
+|   |   |-- 89
+|   |   |   `-- 01585cd2f5bfba60a8a1c0451cc7bad3724bb1
+|   |   |-- 8a
+|   |   |   |-- 3a402f01569b105006c8ae49b8f83bcf415b4c
+|   |   |   |-- 6acf878fc1e846855f134564392233af2363e8
+|   |   |   `-- 7da7177f5459f40e663b6a26de81d0a5653304
+|   |   |-- 8b
+|   |   |   |-- 57587627ce5742395c6aef4f2db4cf32f4d184
+|   |   |   |-- 7006cc870833c0dd9244f9d42aec5f8465b69e
+|   |   |   `-- ce63cf65db70c27b02ade9ef64908251c69454
+|   |   |-- 8c
+|   |   |   |-- 4e6ea27ebfe8d277f0f007eb8105e038ebf080
+|   |   |   `-- 9d93df9c9491f99409468ad1ee157dd198e4bd
+|   |   |-- 8e
+|   |   |   `-- 038e86d31208b1a9b15d6c5c48834ff5a9bd5c
+|   |   |-- 8f
+|   |   |   |-- 20ec4cd11cc3a1ee9ca11c8441d9a1128d0625
+|   |   |   `-- d0d5d6d84f06bfa1e2322b19510a5327e8cc87
+|   |   |-- 91
+|   |   |   |-- 086b9014f1906a7057ece273c8402679c79ed0
+|   |   |   |-- 2ac49b632e647d1b113451e8869fb58bc8c680
+|   |   |   `-- a2fb72495ec31abdbc5c1cc84afca7b471bd57
+|   |   |-- 93
+|   |   |   `-- 7c258f8f2c6ff3eca30d4c695d3b13d228534f
+|   |   |-- 96
+|   |   |   `-- 89ad84df25b45eae1bc238ab325fe4c2cc1b90
+|   |   |-- 97
+|   |   |   `-- 171247f933a096749922415ea2b2a1c5b93be3
+|   |   |-- 9a
+|   |   |   `-- 169c7d567da38451b598f99035c61f2fe66758
+|   |   |-- 9b
+|   |   |   `-- 13071a5c95941c78ce5d7006036b307041697a
+|   |   |-- 9d
+|   |   |   `-- ae6a8e31f759acf122ddcb356f43f887c3b990
+|   |   |-- a3
+|   |   |   `-- eb9745ecd26a38a950ecd2d6db2e6ca8ee0ffc
+|   |   |-- a6
+|   |   |   `-- e08f8917e196b1f68ae55120212908dc6a0291
+|   |   |-- a7
+|   |   |   |-- 104b1ac5dcf057de6196769401d155843c82d0
+|   |   |   `-- 3f84fcb6f31d60f280c0099ca3744d5e5836bc
+|   |   |-- a8
+|   |   |   `-- 57f435efd2503aa87c4f48776d6ed45b0a0493
+|   |   |-- a9
+|   |   |   `-- 5b07854aec0b26c4c7373d5fabdd733063eb59
+|   |   |-- ac
+|   |   |   `-- c8f6f4b47970891ef1be8884a37f864bb018ff
+|   |   |-- ad
+|   |   |   `-- 90293f8031ccafaaec8cf47afd40ca67743d48
+|   |   |-- b0
+|   |   |   |-- 41f446c4f4fc2d14cb72bbccc73f36ef7b0d40
+|   |   |   |-- 7cbee20e3144d18173e89235b2bd62f707fad5
+|   |   |   `-- fa16e4669ca6c1ace84932d1af53e9fe3dd3ed
+|   |   |-- b2
+|   |   |   |-- 405c1e2c1c0bc4db717ed70ec68485a0aa4bc1
+|   |   |   `-- 8218aa47482c81abd0c7cc5de30bd61fcc37f7
+|   |   |-- b3
+|   |   |   `-- 8d9c39ed58993c067b655d58c98978dda7300d
+|   |   |-- b6
+|   |   |   `-- b7f8b19db6510b9d413a6ebec0fc82ac4e2e40
+|   |   |-- b7
+|   |   |   |-- 0e88e008e76995a9adcb0c898ded0001066a22
+|   |   |   |-- 6ed1404e414b3c45e01be518c26942a1f62c00
+|   |   |   `-- fc2ffa852be0dc6fb9648dc79f613363644271
+|   |   |-- b8
+|   |   |   |-- 1c70c6d84b8496ac7759c7e54c1a3f8d0bdb7a
+|   |   |   `-- 350821c9e17ee161a519479fce07660fb3a9dd
+|   |   |-- bb
+|   |   |   |-- d962ac44f33dae564cac94be7bcd14f505693c
+|   |   |   `-- f25c7ada4a52d8afd8a3af33028fed93ba1b8c
+|   |   |-- bd
+|   |   |   `-- 91484ee17616ecbd1af7e297d2c818a91831e4
+|   |   |-- c2
+|   |   |   `-- cae77041ff49e5b602ec667fe49763379057a6
+|   |   |-- c3
+|   |   |   `-- b41a749e8590a32d3cd02d1e0bf1d930695304
+|   |   |-- c6
+|   |   |   `-- 24aa0668d51e9f381e7ebf88d3bf80175b4797
+|   |   |-- c7
+|   |   |   |-- 8bb6155197f2ed8bcd55d7b4bf6eaeea8e795f
+|   |   |   `-- b6bc9b5c39acee9149959715c2d7169e8cb171
+|   |   |-- c9
+|   |   |   `-- edfeb9417332f630e613c1674d70015f0cafa5
+|   |   |-- cb
+|   |   |   |-- 305ba8bc601afb3cfebbbec494c3867b277df1
+|   |   |   `-- 7a089b05c0d497c952c150d5351b04454e29cc
+|   |   |-- cc
+|   |   |   |-- bb02e59a505bbbb83753bd7597cee6972c3ba6
+|   |   |   `-- e1d1bb44839222a6e5b02664089996fc58d664
+|   |   |-- cd
+|   |   |   |-- 7b4e64ac28437a2a8df0a00102bba9fb5430d8
+|   |   |   `-- 83ce748604ad2f00661a08fffc7dafe7eab0aa
+|   |   |-- d0
+|   |   |   `-- 0d81c80072f81472eb2d2789795342e66e3645
+|   |   |-- d2
+|   |   |   `-- b8ddb394f4a62a9722b7c2a0853109275d1621
+|   |   |-- d4
+|   |   |   `-- 33f60029cd443d64ffea6503dcddabd84e397c
+|   |   |-- d6
+|   |   |   |-- 5971e4eb8d999798cfcd202809698d7be913ff
+|   |   |   `-- 8dd6f23d7342bf7fc89362b653158bba742113
+|   |   |-- d8
+|   |   |   `-- 4b7a994ae9d4bc0b256bc9eec2fa6cc40d9c5f
+|   |   |-- da
+|   |   |   |-- 675d8064b9ff041c64fa686bb1a64264b9c5e7
+|   |   |   `-- 82889076fe20a019f68f6a56ca7014c39988c2
+|   |   |-- db
+|   |   |   `-- 8bfcccfec99f9749ebd147077e5d23bf9270bc
+|   |   |-- dd
+|   |   |   |-- 39abadcec525176653e373a26c7b3591ccfed5
+|   |   |   `-- c3b34b6f97fa293ae2dc14ec8625d8e709e32e
+|   |   |-- e3
+|   |   |   `-- 27519087d9bbe68687c215ad88aa823c7193c7
+|   |   |-- e4
+|   |   |   |-- 2818eeac54dbfe0da814ecd728bc826276569e
+|   |   |   `-- a6c39b83b976fc5fc06287f22448bee332062d
+|   |   |-- e6
+|   |   |   `-- 9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+|   |   |-- e8
+|   |   |   `-- 2a5b6e08d8d4ec8910b1db3cc341a1c491e3ae
+|   |   |-- e9
+|   |   |   `-- 6ecb04167913eed53408963f21efdb578e6b59
+|   |   |-- ea
+|   |   |   |-- 66f185986851d9e9492f67d11df2d23e85e321
+|   |   |   `-- 7a2b88d6dfa0b4e122b3b60fbc985d3fefc95e
+|   |   |-- eb
+|   |   |   `-- e933ec28829737f660384220c06a6598d8f625
+|   |   |-- ee
+|   |   |   `-- 6dad5fd2ca557e269f98974b01a64b11ac667b
+|   |   |-- ef
+|   |   |   `-- adccfca54687aac00154fcc94bb1bdea8cb9e4
+|   |   |-- f0
+|   |   |   `-- b3906a9fc082457298a05f9588d818f8f38a69
+|   |   |-- f1
+|   |   |   `-- eb60e62562947cebff99e2602381256b30d433
+|   |   |-- f4
+|   |   |   `-- 89061c2a1324f626b7ff14a89ac8744cdd75eb
+|   |   |-- f5
+|   |   |   |-- 69deecd3e0989649c493135b55faec577cd7b2
+|   |   |   `-- 6b36c5226e8ceec8c06c121ea365b2c8427255
+|   |   |-- f6
+|   |   |   `-- 89e262081386f55fab969ef6491b6cf47d9090
+|   |   |-- f9
+|   |   |   `-- b11cbe45c13ef256b97201f87f7c915399308f
+|   |   |-- fb
+|   |   |   `-- 94708a236adc0b553245a40f1f064fd6d5440f
+|   |   |-- fc
+|   |   |   `-- e9694293909c56f1f45eff0bd1e774d74a4e43
+|   |   |-- fe
+|   |   |   |-- 281596cb70c9737483f3ad8488213f9e1d7316
+|   |   |   `-- 488818632ba2f1a04c2f74bcf283eca3d684be
+|   |   |-- info
+|   |   `-- pack
+|   |-- refs
+|   |   |-- heads
+|   |   |   `-- main
+|   |   |-- remotes
+|   |   |   `-- origin
+|   |   `-- tags
+|   |-- COMMIT_EDITMSG
+|   |-- FETCH_HEAD
+|   |-- HEAD
+|   |-- config
+|   |-- description
+|   `-- index
+|-- .venv
+|   |-- bin
+|   |   |-- activate
+|   |   |-- activate.csh
+|   |   |-- activate.fish
+|   |   |-- activate.nu
+|   |   |-- activate.ps1
+|   |   |-- activate_this.py
+|   |   |-- django-admin
+|   |   |-- dotenv
+|   |   |-- pip
+|   |   |-- pip-3.12
+|   |   |-- pip3
+|   |   |-- pip3.12
+|   |   |-- python -> /usr/local/bin/python3.12
+|   |   |-- python3 -> python
+|   |   |-- python3.12 -> python
+|   |   `-- sqlformat
+|   |-- lib
+|   |   `-- python3.12
+|   |       `-- site-packages
+|   |-- .gitignore
+|   |-- CACHEDIR.TAG
+|   `-- pyvenv.cfg
+|-- .vscode
+|   |-- launch.json
+|   `-- settings.json
+|-- docker
+|   |-- cron
+|   |   |-- Dockerfile
+|   |   |-- crontab
+|   |   `-- entrypoint.sh
+|   `-- postgres
+|       `-- init.sql
+|-- docs
+|   |-- diagrams
+|   |   |-- class_diagram_entity_vazby_v3.png
+|   |   |-- class_diagram_entity_vazby_v3.svg
+|   |   |-- model-overview.puml
+|   |   |-- state_machine_rezervace_HOLD_expirace.png
+|   |   |-- state_machine_rezervace_HOLD_expirace.puml
+|   |   `-- state_machine_rezervace_HOLD_expirace.svg
+|   |-- inventory
+|   |   |-- v1
+|   |   `-- v2
+|   |       |-- INDEX.md
+|   |       |-- INVENTORY.md
+|   |       |-- INVENTORY_FULL.md
+|   |       |-- INVENTORY_accounts_FULL.md
+|   |       |-- INVENTORY_audit_FULL.md
+|   |       |-- INVENTORY_availability_FULL.md
+|   |       |-- INVENTORY_common_FULL.md
+|   |       |-- INVENTORY_config_FULL.md
+|   |       |-- INVENTORY_fleet_FULL.md
+|   |       |-- INVENTORY_pricing_FULL.md
+|   |       `-- INVENTORY_reservations_FULL.md
+|   |-- CAR_RESERVATION_DataDictionary_v9_inventory_gaps_targets_rationale.xlsx
+|   `-- README.md
+|-- out_temp
+|   |-- CAR_RESERVATION_DataDictionary_v3(1).xlsx
+|   |-- car_reservation_v3_table_class_diagram.png
+|   `-- car_reservation_v3_table_state_machine.png
+|-- src
+|   |-- accounts
+|   |   |-- __pycache__
+|   |   |   |-- admin.cpython-312.pyc
+|   |   |   `-- models.cpython-312.pyc
+|   |   |-- api
+|   |   |   |-- serializers.py
+|   |   |   |-- urls.py
+|   |   |   `-- views.py
+|   |   |-- migrations
+|   |   |   |-- __pycache__
+|   |   |   |-- 0001_initial.py
+|   |   |   `-- __init__.py
+|   |   |-- services
+|   |   |   `-- scope.py
+|   |   |-- admin.py
+|   |   `-- models.py
+|   |-- audit
+|   |   |-- services
+|   |   |   `-- request_context.py
+|   |   `-- middleware.py
+|   |-- availability
+|   |   |-- __pycache__
+|   |   |   |-- admin.cpython-312.pyc
+|   |   |   `-- models.cpython-312.pyc
+|   |   |-- api
+|   |   |   |-- serializers.py
+|   |   |   |-- urls.py
+|   |   |   `-- views.py
+|   |   |-- migrations
+|   |   |   |-- __pycache__
+|   |   |   |-- 0001_initial.py
+|   |   |   `-- __init__.py
+|   |   |-- services
+|   |   |   `-- availability.py
+|   |   |-- admin.py
+|   |   `-- models.py
+|   |-- common
+|   |   |-- __pycache__
+|   |   |   |-- __init__.cpython-312.pyc
+|   |   |   `-- models.cpython-312.pyc
+|   |   |-- api
+|   |   |   |-- __init__.py
+|   |   |   |-- errors.py
+|   |   |   |-- pagination.py
+|   |   |   `-- responses.py
+|   |   |-- auth
+|   |   |   |-- __init__.py
+|   |   |   |-- jwt.py
+|   |   |   `-- permissions.py
+|   |   |-- idempotency
+|   |   |   |-- __init__.py
+|   |   |   |-- models.py
+|   |   |   `-- service.py
+|   |   |-- management
+|   |   |   |-- __pycache__
+|   |   |   |-- commands
+|   |   |   `-- __init__.py
+|   |   |-- utils
+|   |   |   |-- datetime.py
+|   |   |   `-- money.py
+|   |   |-- __init__.py
+|   |   `-- models.py
+|   |-- config
+|   |   |-- __pycache__
+|   |   |   |-- __init__.cpython-312.pyc
+|   |   |   |-- api_urls.cpython-312.pyc
+|   |   |   |-- urls.cpython-312.pyc
+|   |   |   `-- wsgi.cpython-312.pyc
+|   |   |-- settings
+|   |   |   |-- __pycache__
+|   |   |   |-- __init__.py
+|   |   |   |-- base.py
+|   |   |   |-- dev.py
+|   |   |   `-- prod.py
+|   |   |-- __init__.py
+|   |   |-- api_urls.py
+|   |   |-- asgi.py
+|   |   |-- urls.py
+|   |   `-- wsgi.py
+|   |-- fleet
+|   |   |-- __pycache__
+|   |   |   |-- admin.cpython-312.pyc
+|   |   |   `-- models.cpython-312.pyc
+|   |   |-- api
+|   |   |   |-- serializers.py
+|   |   |   |-- urls.py
+|   |   |   `-- views.py
+|   |   |-- migrations
+|   |   |   |-- __pycache__
+|   |   |   |-- 0001_initial.py
+|   |   |   |-- 0002_remove_vehicle_plate_vehicleplate.py
+|   |   |   |-- 0003_migrate_vehicle_plate_to_history.py
+|   |   |   |-- 0004_remove_vehicle_plate.py
+|   |   |   `-- __init__.py
+|   |   |-- services
+|   |   |   `-- selectors.py
+|   |   |-- admin.py
+|   |   `-- models.py
+|   |-- pricing
+|   |   |-- __pycache__
+|   |   |   |-- admin.cpython-312.pyc
+|   |   |   `-- models.cpython-312.pyc
+|   |   |-- migrations
+|   |   |   |-- __pycache__
+|   |   |   |-- 0001_initial.py
+|   |   |   |-- 0002_initial.py
+|   |   |   `-- __init__.py
+|   |   |-- services
+|   |   |   `-- pricing_engine.py
+|   |   |-- admin.py
+|   |   `-- models.py
+|   |-- reservations
+|   |   |-- __pycache__
+|   |   |   |-- admin.cpython-312.pyc
+|   |   |   `-- models.cpython-312.pyc
+|   |   |-- api
+|   |   |   |-- serializers.py
+|   |   |   |-- urls.py
+|   |   |   `-- views.py
+|   |   |-- domain
+|   |   |   |-- __init__.py
+|   |   |   |-- events.py
+|   |   |   |-- guards.py
+|   |   |   `-- states.py
+|   |   |-- management
+|   |   |   `-- commands
+|   |   |-- migrations
+|   |   |   |-- __pycache__
+|   |   |   |-- 0001_initial.py
+|   |   |   `-- __init__.py
+|   |   |-- services
+|   |   |   |-- __init__.py
+|   |   |   |-- audit.py
+|   |   |   |-- errors.py
+|   |   |   |-- pricing.py
+|   |   |   |-- reservation_service.py
+|   |   |   |-- state_machine.py
+|   |   |   `-- transitions.py
+|   |   |-- admin.py
+|   |   |-- models.py
+|   |   `-- selectors.py
+|   `-- manage.py
+|-- .env
+|-- .env.example
+|-- .gitignore
+|-- README.md
+|-- poetry.lock
+|-- pyproject.toml
+`-- struktura_projektu.txt
+
+224 directories, 383 files

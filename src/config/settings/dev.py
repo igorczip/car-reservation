@@ -8,3 +8,5 @@ print("✅ DJANGO_SETTINGS_MODULE:", "config.settings.dev")
 print("✅ DB ENGINE:", DATABASES["default"]["ENGINE"])
 print("✅ DB HOST:", DATABASES["default"].get("HOST"))
 print("✅ DB NAME:", DATABASES["default"].get("NAME"))
+
+REST_FRAMEWORK["DEFAULT_SCHEMA_CLASS"] = "drf_spectacular.openapi.AutoSchema"

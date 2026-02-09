@@ -21,6 +21,7 @@ INSTALLED_APPS = [
 
     # 3rd party
     "rest_framework",
+    "drf_spectacular",
 
     # project apps (zatím jen registrace; modely doplníme později)
     "accounts",
@@ -95,3 +96,11 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [],
     "DEFAULT_PERMISSION_CLASSES": [],
 }
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Car Reservation API",
+    "DESCRIPTION": "OpenAPI schema pro MVP",
+    "VERSION": "0.1.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+

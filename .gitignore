@@ -40,3 +40,10 @@ media/
 # =====================
 out_temp/
 *.bak
+
+# Excel temp soubory
+~$*.xlsx
+
+# Snapshots / DB backups
+snapshots/
+backups/

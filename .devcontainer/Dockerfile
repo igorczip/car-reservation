@@ -9,3 +9,5 @@ RUN pip install "poetry==${POETRY_VERSION}"
 
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-root

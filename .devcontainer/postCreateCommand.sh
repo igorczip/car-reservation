@@ -5,9 +5,13 @@ cd /workspace
 
 poetry --version
 
-# pokud chceš, můžeš fixně přepnout do "dependency-only" režimu,
-# ale není nutné – jen nebudeme instalovat root balíček.
+# pojistka: venv v projektu (./.venv)
+poetry config virtualenvs.in-project true --local || true
+
+# instalace závislostí podle poetry.lock
 poetry install --no-interaction --no-ansi --no-root
 
-echo "✅ Hotovo. Django běží v kontejneru web a je mapovaný na http://127.0.0.1:8010/"
-echo "✅ PlantUML je na http://127.0.0.1:18081/"
+echo "✅ Hotovo. Závislosti nainstalované do /workspace/.venv"
+echo "✅ Django (host):   http://127.0.0.1:8010/   (container: 0.0.0.0:8000)"
+echo "✅ Postgres (host): 127.0.0.1:5433           (container: db:5432)"
+echo "✅ PlantUML (host): http://127.0.0.1:18081/"
